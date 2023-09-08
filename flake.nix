@@ -17,7 +17,7 @@
           ];
 
           networking.hostId = "51a5861e";
-          disko.devices = (import ./disk-config.nix { lib = nixpkgs.lib; });
+          disko.devices = import ./disks.nix { lib = nixpkgs.lib; };
 
           boot = {
             swraid.enable = true;
@@ -30,6 +30,7 @@
             };
           };
           services.openssh.enable = true;
+
           users.users.root.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFANqxKsQzD00spT2M+Op7n8/8Bd+I9q6umyL7RuVWWx billsb@m1"
           ];
