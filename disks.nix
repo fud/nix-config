@@ -114,17 +114,26 @@
         root = {
           type = "zfs_fs";
           mountpoint = "/";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
         home = {
           type = "zfs_fs";
           mountpoint = "/home";
-          options."com.sun:auto-snapshot" = "true";
+           options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
         var = {
           type = "zfs_fs";
           mountpoint = "/var";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
           postCreateHook = "mkdir -p /var/data && mkdir -p /var/lib/libvirt";
         };
       };
@@ -134,7 +143,7 @@
       mode = "mirror";
       rootFsOptions = {
         compression = "zstd";
-        "com.sun:auto-snapshot" = "false";
+        canmount = "off";
       };
       postCreateHook = "zfs snapshot zstorage@blank";
 
@@ -142,26 +151,34 @@
         data = {
           type = "zfs_fs";
           mountpoint = "/var/data";
-          options.mountpoint = "legacy";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
         "virtual/images" = {
           type = "zfs_fs";
           mountpoint = "/var/lib/libvirt/images";
-          options.mountpoint = "legacy";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
         "virtual/snapshots" = {
           type = "zfs_fs";
           mountpoint = "/var/lib/libvirt/snapshots";
-          options.mountpoint = "legacy";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
         "virtual/os" = {
           type = "zfs_fs";
           mountpoint = "/var/lib/libvirt/os";
-          options.mountpoint = "legacy";
-          options."com.sun:auto-snapshot" = "true";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
+          };
         };
       };
     };

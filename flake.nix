@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.disko.url = "github:nix-community/disko";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -20,7 +20,12 @@
           disko.devices = import ./disks.nix { lib = nixpkgs.lib; };
 
           boot = {
-            swraid.enable = true;
+            # initrd = {
+            #   services = {
+            #     swraid = true;
+            #   };
+            # };
+
             loader = {
               grub = {
                 efiSupport = true;
@@ -31,9 +36,12 @@
           };
           services.openssh.enable = true;
 
-          users.users.root.openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFANqxKsQzD00spT2M+Op7n8/8Bd+I9q6umyL7RuVWWx billsb@m1"
-          ];
+          users.users.root = {
+            password = "letmein";
+            openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFANqxKsQzD00spT2M+Op7n8/8Bd+I9q6umyL7RuVWWx billsb@m1"
+            ];
+          };
         })
       ];
     };
